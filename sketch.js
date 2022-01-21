@@ -34,7 +34,7 @@ function setup() {
   ghost.addAnimation("standing2", ghostImg_2);
   ghost.scale = 0.3;
   ghost.setCollider("rectangle", -25, +30, 25, 245);
-  ghost.debug = true;
+  //ghost.debug = true;
   
   spookySound.loop();
   
