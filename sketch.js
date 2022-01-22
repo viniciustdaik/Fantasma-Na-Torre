@@ -11,7 +11,7 @@ var left = false;
 var right = false;
 
 function preload(){
-  towerImg = loadImage("tower.png");
+  towerImg = loadImage("longer_width&height_tower.png");
   doorImg = loadImage("door.png");
   climberImg = loadImage("climber.png");
   ghostImg = loadAnimation("ghost-standing.png");
@@ -22,12 +22,12 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(600, 600);
-  tower = createSprite(300,300);
+  createCanvas(windowWidth, windowHeight);
+  tower = createSprite(width/2, height/2);
   tower.addImage("tower",towerImg);
   tower.velocityY = 1;
   
-  ghost = createSprite(200, 200, 50, 50);
+  ghost = createSprite(width/2, height/2, 50, 50);
   ghost.addAnimation("standing", ghostImg);
   ghost.addAnimation("jumping", ghostImg2);
   ghost.addAnimation("jumping2", ghostImg2_2);
@@ -36,7 +36,7 @@ function setup() {
   ghost.setCollider("rectangle", -25, +30, 25, 245);
   //ghost.debug = true;
   
-  spookySound.loop();
+  //spookySound.loop();
   
   doorsGroup = new Group();
   climbersGroup = new Group();
@@ -47,6 +47,7 @@ function setup() {
 
 function draw() {
   background('black');
+
   if(keyWentUp("left_arrow")||keyWentUp("A")){
       left = false;
     }
@@ -80,8 +81,9 @@ function draw() {
       right = false;
       left = false;
     }
-    if(keyDown("space")||keyDown("up_arrow")||keyDown("W")){
+    if(keyDown("space")||keyDown("up_arrow")||keyDown("W")||touches.length > 0){
       ghost.velocityY = -10;
+      touches = [];
       if(left == true){
         ghost.changeAnimation("jumping", ghostImg2);
         ghost.setCollider("rectangle", -25, +30, 25, 245);
@@ -90,13 +92,21 @@ function draw() {
         ghost.changeAnimation("jumping2", ghostImg2_2);
         ghost.setCollider("rectangle", +25, +30, 25, 245);
       }
+      //if(right == false&&left == false){
+      //  ghost.changeAnimation("jumping", ghostImg2);
+      //  ghost.setCollider("rectangle", -25, +30, 25, 245);
+      //}
     }
     ghost.velocityY = ghost.velocityY+0.8;
     //if(ghost.velocityY >= 0.8){
     //  ghost.changeAnimation("standing", ghostImg);
     //}
   }
-  if(tower.y > 600){
+  
+  console.log("Height: "+windowHeight); 
+  console.log("Width: "+windowWidth);
+
+  if(tower.y > 864){//600
       tower.y = 0;
     }
   if(climbersGroup.isTouching(ghost)){
@@ -110,7 +120,7 @@ function draw() {
       ghost.setCollider("rectangle", +25, +30, 25, 245);
     }
   }
-  if(invisibleBlockGroup.isTouching(ghost)||ghost.y >600||ghost.isTouching(edges[0])||ghost.isTouching(edges[1])){
+  if(invisibleBlockGroup.isTouching(ghost)||ghost.isTouching(edges[3])||ghost.isTouching(edges[0])||ghost.isTouching(edges[1])){
     //ghost.destroy();
     ghost.visible = false;
     ghost.velocityY = 0;
@@ -123,23 +133,25 @@ function draw() {
   invisibleBlockGroup.destroyEach();
   textSize(25);
   fill('cyan');
-  text("Clique Para Jogar De Novo.", 150 ,160);
+  text("Toque/Clique Para Jogar De Novo.", windowWidth/2-150 ,windowHeight/2-160);//150, 160
   textSize(25);
   fill('gold');
-  text("Pontuação: "+score, 210, 220);
+  text("Pontuação: "+score, windowWidth/2-210, windowHeight/2-220);//210, 220
   textSize(25);
   fill('gold');
-  text("Melhor Pontuação: "+highscore, 185, 190);
+  text("Melhor Pontuação: "+highscore, windowWidth/2-185, windowHeight/2-190);//185, 190
   textSize(25);
   fill('red');
-  text("Fim De Jogo.", 230, 250);
-  if(mousePressedOver(tower)||mousePressedOver(ghost)){
+  text("Fim De Jogo.", windowWidth/2-230, windowHeight/2-250);//230, 250
+  if(mousePressedOver(tower)||mousePressedOver(ghost)||touches.length > 0){
+    touches = [];
     reset();
   }
 }
   console.log(gameState);
   console.log("left: "+left);
   console.log("right: "+right);
+  console.log("ghostX: "+ghost.x);
   drawSprites();
 }
 
@@ -149,19 +161,20 @@ function createDoor(){
   if(frameCount%240==0){
     door = createSprite(200, -50);
     door.addImage("door", doorImg);
-    door.x = Math.round(random(120, 400));
+    door.x = Math.round(random(165, 1315));
     door.velocityY = 1;
-    door.lifetime = 800;
+    door.lifetime = 950;
     door.depth = ghost.depth;
     ghost.depth = ghost.depth+1;
     climber = createSprite(200, 10);
     climber.addImage("climber", climberImg);
     climber.x = door.x;
     climber.velocityY = 1;
-    climber.lifetime = 800;
+    climber.lifetime = 950;
     invisibleBlock = createSprite(200, 15);
     invisibleBlock.visible = false;
     invisibleBlock.width = climber.width;
+    invisibleBlock.lifetime = 950;
     invisibleBlock.height = 2;
     invisibleBlock.velocityY = 1;
     invisibleBlock.x = door.x;
@@ -179,8 +192,8 @@ function reset(){
   tower.visible = true;
   score = 0;
   gameState = "play";
-  ghost.x = 200;
-  ghost.y = 200;
+  ghost.x = width/2;
+  ghost.y = height/2;
   ghost.visible = true;
   
 }
