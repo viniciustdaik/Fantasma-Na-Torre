@@ -36,7 +36,7 @@ function setup() {
   ghost.setCollider("rectangle", -25, +30, 25, 245);
   //ghost.debug = true;
   
-  //spookySound.loop();
+  spookySound.loop();
   
   doorsGroup = new Group();
   climbersGroup = new Group();
