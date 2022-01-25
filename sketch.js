@@ -45,7 +45,7 @@ function setup() {
   ghost.setCollider("rectangle", -25, +30, 25, 245);
   //ghost.debug = true;
   
-  spookySound.loop();
+  //spookySound.loop();
   
   doorsGroup = new Group();
   climbersGroup = new Group();
@@ -57,12 +57,12 @@ function setup() {
 function draw() {
   background('black');
   
-  if(keyWentUp("left_arrow")||keyWentUp("A")){
+  /*if(keyWentUp("left_arrow")||keyWentUp("A")){
       left = false;
     }
   if(keyWentUp("right_arrow")||keyWentUp("D")){
       right = false;
-    }
+    }*/
   if(left == true&&ghost.velocityY >= 0.8){
     ghost.changeAnimation("standing", ghostImg);
     ghost.setCollider("rectangle", -25, +30, 25, 245);
@@ -78,6 +78,7 @@ function draw() {
     if(keyDown("left_arrow")||keyDown("A")){//||mousePressedOver(left_arrow_button)){
       ghost.x = ghost.x-3;
       left = true;
+      right = false
     }else if(mousePressedOver(left_arrow_button)){
       ghost.x = ghost.x-3;
       left = true;
@@ -86,6 +87,7 @@ function draw() {
     if(keyDown("right_arrow")||keyDown("D")){//||mousePressedOver(right_arrow_button)){
       ghost.x = ghost.x+3;
       right = true;
+      left = false;
     }else if(mousePressedOver(right_arrow_button)){
       ghost.x = ghost.x+3;
       left = false;
