@@ -9,6 +9,7 @@ var score = 0;
 var highscore = 0;
 var left = false;
 var right = false;
+var left_arrow_button, left_arrow_buttonimg, right_arrow_button, right_arrow_buttonimg;
 
 function preload(){
   towerImg = loadImage("longer_width&height_tower.png");
@@ -19,6 +20,8 @@ function preload(){
   ghostImg2 = loadAnimation("ghost-jumping.png");
   ghostImg_2 = loadAnimation("ghost-standing_2.png");
   ghostImg2_2 = loadAnimation("ghost-jumping_2.png");
+  left_arrow_buttonimg = loadImage("left_arrow.png");
+  right_arrow_buttonimg = loadImage("right_arrow.png");
 }
 
 function setup() {
@@ -27,6 +30,12 @@ function setup() {
   tower.addImage("tower",towerImg);
   tower.velocityY = 1;
   
+  left_arrow_button = createSprite(width/2-55, height-55, 15, 15);
+  left_arrow_button.addImage("left_arrowimg", left_arrow_buttonimg);
+
+  right_arrow_button = createSprite(width/2+55, height-55, 15, 15);
+  right_arrow_button.addImage("right_arrowimg", right_arrow_buttonimg);
+
   ghost = createSprite(width/2, height/2, 50, 50);
   ghost.addAnimation("standing", ghostImg);
   ghost.addAnimation("jumping", ghostImg2);
@@ -36,7 +45,7 @@ function setup() {
   ghost.setCollider("rectangle", -25, +30, 25, 245);
   //ghost.debug = true;
   
-  spookySound.loop();
+  //spookySound.loop();
   
   doorsGroup = new Group();
   climbersGroup = new Group();
@@ -66,14 +75,19 @@ function draw() {
     createDoor();
     score = score+Math.round(getFrameRate()/30);
     
-    if(keyDown("left_arrow")||keyDown("A")){
+    if(keyDown("left_arrow")||keyDown("A")){//||mousePressedOver(left_arrow_button)){
       ghost.x = ghost.x-3;
       left = true;
+    }else if(mousePressedOver(left_arrow_button)){
+      ghost.x = ghost.x-3;
     }
-    if(keyDown("right_arrow")||keyDown("D")){
+    if(keyDown("right_arrow")||keyDown("D")){//||mousePressedOver(right_arrow_button)){
       ghost.x = ghost.x+3;
       right = true;
+    }else if(mousePressedOver(right_arrow_button)){
+      ghost.x = ghost.x+3;
     }
+    
     if(keyDown("left_arrow")&&keyDown("right_arrow")
     ||keyDown("D")&&keyDown("A")
     ||keyDown("D")&&keyDown("left_arrow")
@@ -128,6 +142,8 @@ function draw() {
   }
   if(gameState == "end"){
   tower.visible = false;
+  left_arrow_button.visible = false;
+  right_arrow_button.visible = false;
   doorsGroup.destroyEach();
   climbersGroup.destroyEach();
   invisibleBlockGroup.destroyEach();
@@ -161,7 +177,7 @@ function createDoor(){
   if(frameCount%240==0){
     door = createSprite(200, -50);
     door.addImage("door", doorImg);
-    door.x = Math.round(random(165, 1315));
+    door.x = Math.round(random(265, 1285));
     door.velocityY = 1;
     door.lifetime = 950;
     door.depth = ghost.depth;
@@ -195,6 +211,8 @@ function reset(){
   ghost.x = width/2;
   ghost.y = height/2;
   ghost.visible = true;
+  left_arrow_button.visible = true;
+  right_arrow_button.visible = true;
   
 }
 
