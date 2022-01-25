@@ -172,7 +172,8 @@ function draw() {
   textSize(25);
   fill('red');
   text("Fim De Jogo.", windowWidth/2-230, windowHeight/2-250);//230, 250
-  if(mousePressedOver(tower)||mousePressedOver(ghost)||touches.length > 0){
+  if(mousePressedOver(tower)||mousePressedOver(ghost)||touches.length > 0
+  ||mousePressedOver(up_arrow_button)||mousePressedOver(right_arrow_button)||mousePressedOver(left_arrow_button)){
     touches = [];
     reset();
   }
