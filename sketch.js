@@ -45,7 +45,7 @@ function setup() {
   ghost.setCollider("rectangle", -25, +30, 25, 245);
   //ghost.debug = true;
   
-  //spookySound.loop();
+  spookySound.loop();
   
   doorsGroup = new Group();
   climbersGroup = new Group();
@@ -56,7 +56,7 @@ function setup() {
 
 function draw() {
   background('black');
-
+  
   if(keyWentUp("left_arrow")||keyWentUp("A")){
       left = false;
     }
@@ -80,12 +80,16 @@ function draw() {
       left = true;
     }else if(mousePressedOver(left_arrow_button)){
       ghost.x = ghost.x-3;
+      left = true;
+      right = false;
     }
     if(keyDown("right_arrow")||keyDown("D")){//||mousePressedOver(right_arrow_button)){
       ghost.x = ghost.x+3;
       right = true;
     }else if(mousePressedOver(right_arrow_button)){
       ghost.x = ghost.x+3;
+      left = false;
+      right = true;
     }
     
     if(keyDown("left_arrow")&&keyDown("right_arrow")
@@ -95,7 +99,7 @@ function draw() {
       right = false;
       left = false;
     }
-    if(keyDown("space")||keyDown("up_arrow")||keyDown("W")||touches.length > 0){
+    if(keyDown("space")||keyDown("up_arrow")||keyDown("W")||touches.length > 0){//||mousePressedOver(tower)||mousePressedOver(ghost)){
       ghost.velocityY = -10;
       touches = [];
       if(left == true){
