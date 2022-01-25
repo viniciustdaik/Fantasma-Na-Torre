@@ -9,7 +9,9 @@ var score = 0;
 var highscore = 0;
 var left = false;
 var right = false;
-var left_arrow_button, left_arrow_buttonimg, right_arrow_button, right_arrow_buttonimg;
+var left_arrow_button, left_arrow_buttonimg, 
+right_arrow_button, right_arrow_buttonimg,
+up_arrow_button, up_arrow_buttonimg;
 
 function preload(){
   towerImg = loadImage("longer_width&height_tower.png");
@@ -22,6 +24,7 @@ function preload(){
   ghostImg2_2 = loadAnimation("ghost-jumping_2.png");
   left_arrow_buttonimg = loadImage("left_arrow.png");
   right_arrow_buttonimg = loadImage("right_arrow.png");
+  up_arrow_buttonimg = loadImage("up_arrow.png");
 }
 
 function setup() {
@@ -30,12 +33,15 @@ function setup() {
   tower.addImage("tower",towerImg);
   tower.velocityY = 1;
   
-  left_arrow_button = createSprite(width/2-55, height-55, 15, 15);
+  left_arrow_button = createSprite(width/2-85, height-55, 15, 15);
   left_arrow_button.addImage("left_arrowimg", left_arrow_buttonimg);
-
-  right_arrow_button = createSprite(width/2+55, height-55, 15, 15);
+  
+  right_arrow_button = createSprite(width/2+85, height-55, 15, 15);
   right_arrow_button.addImage("right_arrowimg", right_arrow_buttonimg);
-
+  
+  up_arrow_button = createSprite(width/2, height-55, 15, 15);
+  up_arrow_button.addImage("up_arrowimg", up_arrow_buttonimg);
+  
   ghost = createSprite(width/2, height/2, 50, 50);
   ghost.addAnimation("standing", ghostImg);
   ghost.addAnimation("jumping", ghostImg2);
@@ -101,9 +107,9 @@ function draw() {
       right = false;
       left = false;
     }
-    if(keyDown("space")||keyDown("up_arrow")||keyDown("W")||touches.length > 0){//||mousePressedOver(tower)||mousePressedOver(ghost)){
+    if(keyDown("space")||keyDown("up_arrow")||keyDown("W")||mousePressedOver(up_arrow_button)){//||mousePressedOver(tower)||mousePressedOver(ghost)){||touches.length > 0){
       ghost.velocityY = -10;
-      touches = [];
+      //touches = [];
       if(left == true){
         ghost.changeAnimation("jumping", ghostImg2);
         ghost.setCollider("rectangle", -25, +30, 25, 245);
@@ -150,6 +156,7 @@ function draw() {
   tower.visible = false;
   left_arrow_button.visible = false;
   right_arrow_button.visible = false;
+  up_arrow_button.visible = false;
   doorsGroup.destroyEach();
   climbersGroup.destroyEach();
   invisibleBlockGroup.destroyEach();
@@ -219,6 +226,7 @@ function reset(){
   ghost.visible = true;
   left_arrow_button.visible = true;
   right_arrow_button.visible = true;
+  up_arrow_button.visible = true;
   
 }
 
