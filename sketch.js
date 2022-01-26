@@ -7,7 +7,7 @@ var gameState = "play";
 var edges;
 var score = 0;
 var highscore = 0;
-var left = false;
+var left = true;
 var right = false;
 var left_arrow_button, left_arrow_buttonimg, 
 right_arrow_button, right_arrow_buttonimg,
