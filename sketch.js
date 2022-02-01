@@ -148,12 +148,14 @@ function draw() {
   }
   if(invisibleBlockGroup.isTouching(ghost)||ghost.isTouching(edges[3])||ghost.isTouching(edges[0])||ghost.isTouching(edges[1])){
     //ghost.destroy();
+    tower.visible = false;
     ghost.visible = false;
     ghost.velocityY = 0;
     gameState = "end";
   }
   if(gameState == "end"){
   tower.visible = false;
+  ghost.visible = false;
   left_arrow_button.visible = false;
   right_arrow_button.visible = false;
   up_arrow_button.visible = false;
