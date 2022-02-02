@@ -86,7 +86,7 @@ function draw() {
       ghost.x = ghost.x-3;
       left = true;
       right = false
-    }else if(mousePressedOver(left_arrow_button)){
+    }else if(mouseIsOver(left_arrow_button)){
       ghost.x = ghost.x-3;
       left = true;
       right = false;
@@ -95,7 +95,7 @@ function draw() {
       ghost.x = ghost.x+3;
       right = true;
       left = false;
-    }else if(mousePressedOver(right_arrow_button)){
+    }else if(mouseIsOver(right_arrow_button)){
       ghost.x = ghost.x+3;
       left = false;
       right = true;
@@ -108,7 +108,7 @@ function draw() {
       right = false;
       left = false;
     }
-    if(keyDown("space")||keyDown("up_arrow")||keyDown("W")||mousePressedOver(up_arrow_button)){//||mousePressedOver(tower)||mousePressedOver(ghost)){||touches.length > 0){
+    if(keyDown("space")||keyDown("up_arrow")||keyDown("W")||mouseIsOver(up_arrow_button)){//||mousePressedOver(tower)||mousePressedOver(ghost)){||touches.length > 0){
       ghost.velocityY = -10;
       //touches = [];
       if(left == true){
