@@ -61,6 +61,7 @@ function setup() {
 }
 
 function draw() {
+  textAlign("center");
   background('black');
   
   /*if(keyWentUp("left_arrow")||keyWentUp("A")){
@@ -165,17 +166,17 @@ function draw() {
   textSize(25);
   fill('cyan');
   stroke('green');
-  text("Toque/Clique Para Jogar De Novo.", windowWidth/2-150 ,windowHeight/2-160);//150, 160
+  text("Toque/Clique Para Jogar De Novo.", windowWidth/2, windowHeight/2-160);//150, 160
   textSize(25);
   fill('gold');
-  text("Pontuação: "+score, windowWidth/2-210, windowHeight/2-220);//210, 220
+  text("Pontuação: "+score, windowWidth/2, windowHeight/2-220);//210, 220
   textSize(25);
   fill('gold');
-  text("Melhor Pontuação: "+highscore, windowWidth/2-185, windowHeight/2-190);//185, 190
+  text("Melhor Pontuação: "+highscore, windowWidth/2, windowHeight/2-190);//185, 190
   textSize(25);
   fill('red');
   stroke('darkred');
-  text("Fim De Jogo.", windowWidth/2-230, windowHeight/2-250);//230, 250
+  text("Fim De Jogo.", windowWidth/2, windowHeight/2-250);//230, 250
   if(mousePressedOver(tower)||mousePressedOver(ghost)||touches.length > 0
   ||mousePressedOver(up_arrow_button)||mousePressedOver(right_arrow_button)||mousePressedOver(left_arrow_button)){
     touches = [];
