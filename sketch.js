@@ -33,17 +33,17 @@ function setup() {
   tower.addImage("tower",towerImg);
   tower.velocityY = 1;
   
-  left_arrow_button = createSprite(width/2-125, height-65, 15, 15);
+  left_arrow_button = createSprite(width/2-85, height-55, 15, 15);
   left_arrow_button.addImage("left_arrowimg", left_arrow_buttonimg);
-  left_arrow_button.scale = 1.5;
+  //left_arrow_button.scale = 1.5; width/2-125, height-65
   
-  right_arrow_button = createSprite(width/2+125, height-65, 15, 15);
+  right_arrow_button = createSprite(width/2+85, height-55, 15, 15);
   right_arrow_button.addImage("right_arrowimg", right_arrow_buttonimg);
-  right_arrow_button.scale = 1.5;
+  //right_arrow_button.scale = 1.5; width/2+125, height-65
   
-  up_arrow_button = createSprite(width/2, height-65, 15, 15);
+  up_arrow_button = createSprite(width/2, height-55, 15, 15);
   up_arrow_button.addImage("up_arrowimg", up_arrow_buttonimg);
-  up_arrow_button.scale = 1.5;
+  //up_arrow_button.scale = 1.5; width/2, height-65
   
   ghost = createSprite(width/2, height/2, 50, 50);
   ghost.addAnimation("standing", ghostImg);
