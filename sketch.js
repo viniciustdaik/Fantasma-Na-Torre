@@ -85,7 +85,7 @@ function draw() {
     createDoor();
     score = score+Math.round(getFrameRate()/30);
     
-    if(keyDown("left_arrow")||keyDown("A")){//||mousePressedOver(left_arrow_button)){
+    if(keyDown(LEFT_ARROW)||keyDown("A")){//||mousePressedOver(left_arrow_button)){
       ghost.x = ghost.x-3;
       left = true;
       right = false
@@ -94,7 +94,7 @@ function draw() {
       left = true;
       right = false;
     }
-    if(keyDown("right_arrow")||keyDown("D")){//||mousePressedOver(right_arrow_button)){
+    if(keyDown(RIGHT_ARROW)||keyDown("D")){//||mousePressedOver(right_arrow_button)){
       ghost.x = ghost.x+3;
       right = true;
       left = false;
@@ -104,14 +104,14 @@ function draw() {
       right = true;
     }
     
-    if(keyDown("left_arrow")&&keyDown("right_arrow")
+    if(keyDown(LEFT_ARROW)&&keyDown(RIGHT_ARROW)
     ||keyDown("D")&&keyDown("A")
-    ||keyDown("D")&&keyDown("left_arrow")
-    ||keyDown("A")&&keyDown("right_arrow")){
+    ||keyDown("D")&&keyDown(LEFT_ARROW)
+    ||keyDown("A")&&keyDown(RIGHT_ARROW)){
       right = false;
       left = false;
     }
-    if(keyDown("space")||keyDown("up_arrow")||keyDown("W")||mouseIsOver(up_arrow_button)){//||mousePressedOver(tower)||mousePressedOver(ghost)){||touches.length > 0){
+    if(keyDown("space")||keyDown(UP_ARROW)||keyDown("W")||mouseIsOver(up_arrow_button)){//||mousePressedOver(tower)||mousePressedOver(ghost)){||touches.length > 0){
       ghost.velocityY = -10;
       //touches = [];
       if(left == true){
