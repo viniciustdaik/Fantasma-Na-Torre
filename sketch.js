@@ -29,9 +29,10 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  tower = createSprite(width/2, height/2);
-  tower.addImage("tower",towerImg);
-  tower.velocityY = 1;
+  tower = createSprite(width/2, height/2, windowWidth, windowHeight);
+  tower.visible = false;
+  //tower.addImage("tower",towerImg);
+  //tower.velocityY = 1;
   
   left_arrow_button = createSprite(width/2-85, height-55, 15, 15);
   left_arrow_button.addImage("left_arrowimg", left_arrow_buttonimg);
@@ -64,8 +65,9 @@ function setup() {
 }
 
 function draw() {
-  textAlign("center");
   background('black');
+  image(towerImg, 0, 0, width, height);
+  textAlign("center");
   
   /*if(keyWentUp("left_arrow")||keyWentUp("A")){
       left = false;
@@ -158,7 +160,7 @@ function draw() {
     gameState = "end";
   }
   if(gameState == "end"){
-  tower.visible = false;
+  //tower.visible = false;
   ghost.visible = false;
   left_arrow_button.visible = false;
   right_arrow_button.visible = false;
@@ -227,7 +229,7 @@ function reset(){
   if(score>highscore){
     highscore = score;
   }
-  tower.visible = true;
+  //tower.visible = true;
   score = 0;
   gameState = "play";
   ghost.x = width/2;
