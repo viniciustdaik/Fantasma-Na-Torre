@@ -256,18 +256,21 @@ function reset(){
   left_arrow_button.position(width / 2 - 135, height - 75);
   right_arrow_button.position(width / 2 + 45, height - 75);
   up_arrow_button.position(width / 2 - 45, height - 75);
-  if(score>highscore){
+  if(score > highscore){
     highscore = score;
   }
+  doorsGroup.destroyEach();
+  climbersGroup.destroyEach();
+  invisibleBlockGroup.destroyEach();
   tower.visible = true;
   score = 0;
   gameState = "play";
   ghost.x = width/2;
   ghost.y = height/2;
   ghost.visible = true;
-  left_arrow_button.visible = true;
-  right_arrow_button.visible = true;
-  up_arrow_button.visible = true;
+  //left_arrow_button.visible = true;
+  //right_arrow_button.visible = true;
+  //up_arrow_button.visible = true;
   
 }
 
