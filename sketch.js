@@ -13,15 +13,17 @@ var left_arrow_button, left_arrow_buttonimg,
 right_arrow_button, right_arrow_buttonimg,
 up_arrow_button, up_arrow_buttonimg;
 
+var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 function preload(){
   towerImg = loadImage("longer_width&height_tower.png");
   doorImg = loadImage("door.png");
   climberImg = loadImage("climber.png");
-  ghostImg = loadAnimation("ghost-standing.png");
+  ghostImg = loadAnimation("./ghost/ghost-standing.png");
   spookySound = loadSound("spooky.wav");
-  ghostImg2 = loadAnimation("ghost-jumping.png");
-  ghostImg_2 = loadAnimation("ghost-standing_2.png");
-  ghostImg2_2 = loadAnimation("ghost-jumping_2.png");
+  ghostImg2 = loadAnimation("./ghost/ghost-jumping.png");
+  ghostImg_2 = loadAnimation("./ghost/ghost-standing_2.png");
+  ghostImg2_2 = loadAnimation("./ghost/ghost-jumping_2.png");
   left_arrow_buttonimg = loadImage("left_arrow.png");
   right_arrow_buttonimg = loadImage("right_arrow.png");
   up_arrow_buttonimg = loadImage("up_arrow.png");
@@ -30,21 +32,36 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
   tower = createSprite(width/2, height/2, windowWidth, windowHeight);
-  tower.visible = false;
-  //tower.addImage("tower",towerImg);
-  //tower.velocityY = 1;
+  //tower.visible = false;
+  tower.addImage("tower", towerImg);
+  tower.velocityY = 1;
   
-  left_arrow_button = createSprite(width/2-85, height-55, 15, 15);
-  left_arrow_button.addImage("left_arrowimg", left_arrow_buttonimg);
+  //left_arrow_button = createSprite(width/2-85, height-55, 15, 15);
+  //left_arrow_button.addImage("left_arrowimg", left_arrow_buttonimg);
   //left_arrow_button.scale = 1.5; width/2-125, height-65
   
-  right_arrow_button = createSprite(width/2+85, height-55, 15, 15);
-  right_arrow_button.addImage("right_arrowimg", right_arrow_buttonimg);
+  //right_arrow_button = createSprite(width/2+85, height-55, 15, 15);
+  //right_arrow_button.addImage("right_arrowimg", right_arrow_buttonimg);
   //right_arrow_button.scale = 1.5; width/2+125, height-65
   
-  up_arrow_button = createSprite(width/2, height-55, 15, 15);
-  up_arrow_button.addImage("up_arrowimg", up_arrow_buttonimg);
+  //up_arrow_button = createSprite(width/2, height-55, 15, 15);
+  //up_arrow_button.addImage("up_arrowimg", up_arrow_buttonimg);
   //up_arrow_button.scale = 1.5; width/2, height-65
+  
+  left_arrow_button = createButton("");
+  left_arrow_button.position(width/2-135, height-75);
+  left_arrow_button.class("leftbutton");
+  left_arrow_button.mousePressed(moveleft);
+  
+  right_arrow_button = createButton("");
+  right_arrow_button.position(width/2+45, height-75);
+  right_arrow_button.class("rightbutton");
+  right_arrow_button.mousePressed(moveright);
+  
+  up_arrow_button = createButton("");
+  up_arrow_button.position(width/2-45, height-75);
+  up_arrow_button.class("upbutton");
+  up_arrow_button.mousePressed(up);
   
   ghost = createSprite(width/2, height/2, 50, 50);
   ghost.addAnimation("standing", ghostImg);
@@ -66,7 +83,7 @@ function setup() {
 
 function draw() {
   background('black');
-  image(towerImg, 0, 0, width, height);
+  //image(towerImg, 0, 0, width, height);
   textAlign("center");
   
   /*if(keyWentUp("left_arrow")||keyWentUp("A")){
@@ -75,11 +92,11 @@ function draw() {
   if(keyWentUp("right_arrow")||keyWentUp("D")){
       right = false;
     }*/
-  if(left == true&&ghost.velocityY >= 0.8){
+  if(left == true && ghost.velocityY >= 0.8){
     ghost.changeAnimation("standing", ghostImg);
     ghost.setCollider("rectangle", -25, +30, 25, 245);
   }
-  if(right == true&&ghost.velocityY >= 0.8){
+  if(right == true && ghost.velocityY >= 0.8){
     ghost.changeAnimation("standing2", ghostImg_2);
     ghost.setCollider("rectangle", +25, +30, 25, 245);
   }
@@ -90,21 +107,21 @@ function draw() {
     if(keyDown(LEFT_ARROW)||keyDown("A")){//||mousePressedOver(left_arrow_button)){
       ghost.x = ghost.x-3;
       left = true;
-      right = false
-    }else if(mouseIsOver(left_arrow_button)){
+      right = false;
+    }/*else if(mouseIsOver(left_arrow_button)){
       ghost.x = ghost.x-3;
       left = true;
       right = false;
-    }
+    }*/
     if(keyDown(RIGHT_ARROW)||keyDown("D")){//||mousePressedOver(right_arrow_button)){
       ghost.x = ghost.x+3;
       right = true;
       left = false;
-    }else if(mouseIsOver(right_arrow_button)){
+    }/*else if(mouseIsOver(right_arrow_button)){
       ghost.x = ghost.x+3;
       left = false;
       right = true;
-    }
+    }*/
     
     if(keyDown(LEFT_ARROW)&&keyDown(RIGHT_ARROW)
     ||keyDown("D")&&keyDown("A")
@@ -113,7 +130,8 @@ function draw() {
       right = false;
       left = false;
     }
-    if(keyDown("space")||keyDown(UP_ARROW)||keyDown("W")||mouseIsOver(up_arrow_button)){//||mousePressedOver(tower)||mousePressedOver(ghost)){||touches.length > 0){
+    if(keyDown("space")||keyDown(UP_ARROW)||keyDown("W")){//||mouseIsOver(up_arrow_button)){
+      //||mousePressedOver(tower)||mousePressedOver(ghost)){||touches.length > 0){
       ghost.velocityY = -10;
       //touches = [];
       if(left == true){
@@ -152,42 +170,51 @@ function draw() {
       ghost.setCollider("rectangle", +25, +30, 25, 245);
     }
   }
-  if(invisibleBlockGroup.isTouching(ghost)||ghost.isTouching(edges[3])||ghost.isTouching(edges[0])||ghost.isTouching(edges[1])){
+  if(invisibleBlockGroup.isTouching(ghost)||ghost.isTouching(edges[3])
+  ||ghost.isTouching(edges[0])||ghost.isTouching(edges[1])){
     //ghost.destroy();
-    tower.visible = false;
+    //tower.visible = false;
     ghost.visible = false;
     ghost.velocityY = 0;
     gameState = "end";
   }
   if(gameState == "end"){
-  //tower.visible = false;
-  ghost.visible = false;
-  left_arrow_button.visible = false;
-  right_arrow_button.visible = false;
-  up_arrow_button.visible = false;
-  doorsGroup.destroyEach();
-  climbersGroup.destroyEach();
-  invisibleBlockGroup.destroyEach();
-  textSize(25);
-  fill('cyan');
-  stroke('green');
-  text("Toque/Clique Para Jogar De Novo.", windowWidth/2, windowHeight/2-160);//150, 160
-  textSize(25);
-  fill('gold');
-  text("Pontuação: "+score, windowWidth/2, windowHeight/2-220);//210, 220
-  textSize(25);
-  fill('gold');
-  text("Melhor Pontuação: "+highscore, windowWidth/2, windowHeight/2-190);//185, 190
-  textSize(25);
-  fill('red');
-  stroke('darkred');
-  text("Fim De Jogo.", windowWidth/2, windowHeight/2-250);//230, 250
-  if(mousePressedOver(tower)||mousePressedOver(ghost)||touches.length > 0
-  ||mousePressedOver(up_arrow_button)||mousePressedOver(right_arrow_button)||mousePressedOver(left_arrow_button)){
-    touches = [];
-    reset();
+    right_arrow_button.position(- 150, height - 75);
+    left_arrow_button.position(- 150, height - 75);
+    up_arrow_button.position(- 150, height - 75);
+    tower.visible = false;
+    ghost.visible = false;
+    left_arrow_button.visible = false;
+    right_arrow_button.visible = false;
+    up_arrow_button.visible = false;
+    doorsGroup.destroyEach();
+    climbersGroup.destroyEach();
+    invisibleBlockGroup.destroyEach();
+    textSize(25);
+    fill('cyan');
+    stroke('green');
+    if(isMobile){
+      text("Toque Para Jogar De Novo.", windowWidth/2, windowHeight/2-160);//150, 160
+    }else{
+      text("Clique Para Jogar De Novo.", windowWidth/2, windowHeight/2-160);//150, 160
+    }
+    textSize(25);
+    fill('gold');
+    text("Pontuação: "+score, windowWidth/2, windowHeight/2-220);//210, 220
+    textSize(25);
+    fill('gold');
+    text("Melhor Pontuação: "+highscore, windowWidth/2, windowHeight/2-190);//185, 190
+    textSize(25);
+    fill('red');
+    stroke('darkred');
+    text("Fim De Jogo.", windowWidth/2, windowHeight/2-250);//230, 250
+    if(mousePressedOver(tower)||mousePressedOver(ghost)||touches.length > 0){
+    //||mousePressedOver(up_arrow_button)||mousePressedOver(right_arrow_button)
+    //||mousePressedOver(left_arrow_button)){
+      touches = [];
+      reset();
+    }
   }
-}
   console.log(gameState);
   console.log("left: "+left);
   console.log("right: "+right);
@@ -203,18 +230,18 @@ function createDoor(){
     door.addImage("door", doorImg);
     door.x = Math.round(random(265, 1285));
     door.velocityY = 1;
-    door.lifetime = 950;
+    door.lifetime = 1250;//950
     door.depth = ghost.depth;
     ghost.depth = ghost.depth+1;
     climber = createSprite(200, 10);
     climber.addImage("climber", climberImg);
     climber.x = door.x;
     climber.velocityY = 1;
-    climber.lifetime = 950;
+    climber.lifetime = 1250;//950
     invisibleBlock = createSprite(200, 15);
     invisibleBlock.visible = false;
     invisibleBlock.width = climber.width;
-    invisibleBlock.lifetime = 950;
+    invisibleBlock.lifetime = 1250;//950
     invisibleBlock.height = 2;
     invisibleBlock.velocityY = 1;
     invisibleBlock.x = door.x;
@@ -226,10 +253,13 @@ function createDoor(){
 }
 
 function reset(){
+  left_arrow_button.position(width / 2 - 135, height - 75);
+  right_arrow_button.position(width / 2 + 45, height - 75);
+  up_arrow_button.position(width / 2 - 45, height - 75);
   if(score>highscore){
     highscore = score;
   }
-  //tower.visible = true;
+  tower.visible = true;
   score = 0;
   gameState = "play";
   ghost.x = width/2;
@@ -241,4 +271,31 @@ function reset(){
   
 }
 
+function moveleft(){
+  ghost.x = ghost.x-3;
+  left = true;
+  right = false;
+}
 
+function moveright(){
+  ghost.x = ghost.x+3;
+  left = false;
+  right = true;
+}
+
+function up(){
+  ghost.velocityY = -10;
+  //touches = [];
+  if(left == true){
+    ghost.changeAnimation("jumping", ghostImg2);
+    ghost.setCollider("rectangle", -25, +30, 25, 245);
+  }
+  if(right == true){
+    ghost.changeAnimation("jumping2", ghostImg2_2);
+    ghost.setCollider("rectangle", +25, +30, 25, 245);
+  }
+  //if(right == false&&left == false){
+  //  ghost.changeAnimation("jumping", ghostImg2);
+  //  ghost.setCollider("rectangle", -25, +30, 25, 245);
+  //}
+}
