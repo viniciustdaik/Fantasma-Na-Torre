@@ -10,7 +10,7 @@ canvas {
   width:70px;
   height: 70px;
   border-radius: 35px;
-  background-image: url('../left_arrow.png');
+  background-image: url('./left_arrow.png');
   background-color: #9ea7a7;
   background-position: center;
   background-size: contain;
@@ -27,7 +27,7 @@ canvas {
   width:70px;
   height: 70px;
   border-radius: 35px;
-  background-image: url('../right_arrow.png');
+  background-image: url('./right_arrow.png');
   background-color: #9ea7a7;
   background-position: center;
   background-size: contain;
@@ -44,7 +44,7 @@ canvas {
   width:70px;
   height: 70px;
   border-radius: 35px;
-  background-image: url('../up_arrow.png');
+  background-image: url('./up_arrow.png');
   background-color: #9ea7a7;
   background-position: center;
   background-size: contain;
