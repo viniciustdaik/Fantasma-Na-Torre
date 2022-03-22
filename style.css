@@ -5,3 +5,54 @@ html, body {
 canvas {
   display: block;
 }
+
+.leftbutton {
+  width:70px;
+  height: 70px;
+  border-radius: 35px;
+  background-image: url('../left_arrow.png');
+  background-color: #9ea7a7;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 10px;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-transition-duration: 0.1s; /* Safari */
+  transition-duration: 0.1s;
+  outline: none;
+}
+
+.rightbutton {
+  width:70px;
+  height: 70px;
+  border-radius: 35px;
+  background-image: url('../right_arrow.png');
+  background-color: #9ea7a7;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 10px;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-transition-duration: 0.1s; /* Safari */
+  transition-duration: 0.1s;
+  outline: none;
+}
+
+.upbutton {
+  width:70px;
+  height: 70px;
+  border-radius: 35px;
+  background-image: url('../up_arrow.png');
+  background-color: #9ea7a7;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 10px;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-transition-duration: 0.1s; /* Safari */
+  transition-duration: 0.1s;
+  outline: none;
+}
